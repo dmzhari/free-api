@@ -3,6 +3,7 @@
 / # Author : ./EcchiExploit
 / # Reverse Ip Lookup Unlimited Api
 */
+set_time_limit(0);
 function reverse($url){
 	$setopt = array(
 		CURLOPT_URL => "https://tools.hack.co.id/reverseip/",
