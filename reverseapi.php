@@ -2,6 +2,9 @@
 /*
 / # Author : ./EcchiExploit
 / # Reverse Ip Lookup Unlimited Api
+/ # How To Use :
+/ # http://example.com/reverseapi.php?domain=your domain
+/ # http://example.com/reverseapi.php?ip=your ip
 */
 set_time_limit(0);
 function reverse($url){
