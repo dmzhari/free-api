@@ -4,7 +4,7 @@ error_reporting(0);
 set_time_limit(0);
 clearstatcache();
 if (!empty($_GET['anime'])) {
-	$anime = htmlspecialchars($_GET['anime']);
+	$anime = htmlspecialchars($_GET['anime']); # How To Use : http://example.com/otakudesuapi.php?anime=your anime title
 	$get = file_get_contents("https://otakudesu.tv/?s=$anime&post_type=anime");
 	if (preg_match("/<ul class=\"chivsrc\"><\/ul><div class=\"clear\">/i", $get)){
 		$api = [
