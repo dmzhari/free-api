@@ -85,11 +85,11 @@ if (!empty($_GET['anime'])) {
 			$batch = preg_match_all("/<span><a href=\"(.*?)\"/i", $page, $bat);
 			$reso =  file_get_contents($bat[1][0]);
 			$okp = preg_match_all("/<i>(.*?)<\/i>/i", $reso, $resolusi);
-			$p360 = preg_match_all("/<strong>MP4 360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload) || preg_match_all("/<strong>360p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);;
+			$p360 = preg_match_all("/<strong>MP4 360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload) || preg_match_all("/<strong>360p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
 			$download360 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don360p);
-			$p480 = preg_match_all("/<strong>MP4 480p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don480) || preg_match_all("/<strong>480p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);;
+			$p480 = preg_match_all("/<strong>MP4 480p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don480) || preg_match_all("/<strong>480p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
 			$download480 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don480p);
-			$p720 = preg_match_all("/<strong>MP4 720p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don720) || preg_match_all("/<strong>720p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);;
+			$p720 = preg_match_all("/<strong>MP4 720p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don720) || preg_match_all("/<strong>720p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
 			$download720 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don720p);
 			$api = [
 				'author' => './EcchiExploit',
