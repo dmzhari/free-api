@@ -1,0 +1,37 @@
+<?php
+// Use : localhost/subdomainfinder-api?domain=example.com
+ob_flush();
+clearstatcache();
+include 'random-useragent.php';
+function curl($url)
+{
+    $setopt = array(
+        CURLOPT_URL => 'https://osint.sh/subdomain/',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => "domain=$url",
+        CURLOPT_USERAGENT => getUserAgent(),
+        CURLOPT_TIMEOUT => 60,
+        CURLOPT_CONNECTTIMEOUT => 60
+    );
+    $ch = curl_init();
+    curl_setopt_array($ch, $setopt);
+    $exe = curl_exec($ch);
+    curl_close($ch);
+    return $exe;
+}
+if (!empty($_GET['domain']))
+{
+    $domain = htmlspecialchars($_GET['domain']);
+    $subdomain = curl($domain);
+    $scrap = preg_match_all("/<a href=\"(.*?)\" target=\"_blank\">www.(.*?)<\/a>/i", $subdomain, $subdo);
+    $api['status'] = http_response_code();
+    $api['result'] = $subdo[2];
+    echo json_encode($api);
+}
+else
+{
+    $api['error'] = 'Not Found';
+    echo json_encode($api);
+}
+?>
