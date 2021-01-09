@@ -1,5 +1,5 @@
 <?php
-// Use : localhost/subdomainfinder-api?domain=example.com
+// Use : localhost/subdomainfinder-api.php?domain=example.com
 ob_flush();
 clearstatcache();
 function curl($url)
