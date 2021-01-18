@@ -27,9 +27,9 @@ if (!empty($_GET['email']))
 	$filter = array_filter($url);
 	if (!$filter == null)
 	{
-			$api['status'] = http_response_code();
-			$api['result'] = $filter;
-			echo json_encode($api);
+		$api['status'] = http_response_code();
+		$api['result'] = $filter;
+		echo json_encode($api);
 	}
 	else
 	{
