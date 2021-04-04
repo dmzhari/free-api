@@ -1,4 +1,6 @@
 <?php
+
+header('Content-type: application/json');
 ob_flush();
 error_reporting(0);
 set_time_limit(0);
@@ -6,15 +8,14 @@ clearstatcache();
 if (!empty($_GET['anime'])) {
 	$anime = htmlspecialchars($_GET['anime']); # How To Use : http://example.com/otakudesuapi.php?anime=your anime title
 	$get = file_get_contents("https://otakudesu.moe/?s=$anime&post_type=anime");
-	if (preg_match("/<ul class=\"chivsrc\"><\/ul><div class=\"clear\">/i", $get)){
+	if (preg_match("/<ul class=\"chivsrc\"><\/ul><div class=\"clear\">/i", $get)) {
 		$api = [
 			'author' => './EcchiExploit',
 			'status' => 'failed',
 			'result' => 'Anime Tidak Ada'
 		];
 		echo json_encode($api);
-	}
-	else {
+	} else {
 		$re = preg_match_all("/title=\"(.*?)\" data-wpel-link=\"internal\">(.*?)/i", $get, $test);
 		$page = file_get_contents($test[1][0]);
 		$status = preg_match_all("/<span><b>Status<\/b>: (.*?)<\/span>/", $page, $check);
@@ -32,11 +33,11 @@ if (!empty($_GET['anime'])) {
 			$ongoing = preg_match_all("/<span><a href=\"(.*?)\"/i", $page, $episode);
 			$eps = file_get_contents($episode[1][1]);
 			$p360 = preg_match_all("/<strong>MP4 360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload) || preg_match_all("/<strong>360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload);
-			$download360 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don360p);
+			$download360 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don360p);
 			$p480 = preg_match_all("/<strong>MP4 480p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload) || preg_match_all("/<strong>480p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload);
-			$download480 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don480p);
+			$download480 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don480p);
 			$p720 = preg_match_all("/<strong>MP4 720p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload) || preg_match_all("/<strong>720p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $eps, $linkdownload);
-			$download720 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don720p);
+			$download720 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don720p);
 			$api = [
 				'author' => './EcchiExploit',
 				'status' => 'success',
@@ -69,9 +70,8 @@ if (!empty($_GET['anime'])) {
 					],
 				],
 			];
-			echo json_encode($api);
-		}
-		else {
+			echo json_encode($api, JSON_PRETTY_PRINT);
+		} else {
 			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>:(.*?)<\/span>/i", $page, $judulanime);
 			$sinopsis = preg_match_all("/class='sinopc'><p>(.*?)<\/p><\/div>/i", $page, $sinop);
 			$thumb = preg_match_all("/img width=\"(.*?)\" height=\"(.*?)\" src=\"(.*?)\"/i", $page, $thumd);
@@ -84,13 +84,12 @@ if (!empty($_GET['anime'])) {
 			$nipc = str_replace("</strong>", "", $nipc);
 			$batch = preg_match_all("/<span><a href=\"(.*?)\"/i", $page, $bat);
 			$reso =  file_get_contents($bat[1][0]);
-			$okp = preg_match_all("/<i>(.*?)<\/i>/i", $reso, $resolusi);
-			$p360 = preg_match_all("/<strong>MP4 360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload) || preg_match_all("/<strong>360p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
-			$download360 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don360p);
+			$p360 = preg_match_all("/<strong>MP4 360p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload) || preg_match_all("/<strong>360p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);;
+			$download360 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don360p);
 			$p480 = preg_match_all("/<strong>MP4 480p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don480) || preg_match_all("/<strong>480p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
-			$download480 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don480p);
+			$download480 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don480p);
 			$p720 = preg_match_all("/<strong>MP4 720p<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $don720) || preg_match_all("/<strong>720p MP4<\/strong> <a href=\"(.*?)\">(.*?)\/a> <i>/i", $reso, $linkdownload);
-			$download720 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0] , $don720p);
+			$download720 = preg_match_all("/href=\"(.*?)\"/i", $linkdownload[2][0], $don720p);
 			$api = [
 				'author' => './EcchiExploit',
 				'status' => 'success',
@@ -123,13 +122,11 @@ if (!empty($_GET['anime'])) {
 					],
 				],
 			];
-			echo json_encode($api);
+			echo json_encode($api, JSON_PRETTY_PRINT);
 		}
 	}
-}
-else {
+} else {
 	$api['error'] = 'not found';
-	echo json_encode($api);
+	echo json_encode($api, JSON_PRETTY_PRINT);
 }
 ob_end_flush();
-?>
