@@ -6,12 +6,13 @@
 / # http://example.com/reverseapi.php?domain=your domain
 / # http://example.com/reverseapi.php?ip=your ip
 */
-set_time_limit(0);
-function reverse($url){
+set_time_limit(60);
+function reverse($url)
+{
 	$setopt = array(
-		CURLOPT_URL => "https://tools.hack.co.id/reverseip/",
+		CURLOPT_URL => "https://osint.sh/reverseip/",
 		CURLOPT_RETURNTRANSFER => 1,
-		CURLOPT_POSTFIELDS => "domain=$url&recaptcha_response=",
+		CURLOPT_POSTFIELDS => "domain=$url",
 		CURLOPT_POST => 1
 	);
 	$ch = curl_init();
@@ -23,56 +24,50 @@ function reverse($url){
 if (!empty($_GET['domain'])) {
 	$domain = htmlspecialchars($_GET['domain']);
 	if (!preg_match("#^http(s)?://#", $domain)) {
-		$site = "http://".$domain;
-	}
-	else {
+		$site = "http://" . $domain;
+	} else {
 		$site = $domain;
 	}
 	$parse = parse_url($site);
 	$url = preg_replace('/^www\./', '', $parse['host']);
-	$www = "www.".$url;
+	$www = "www." . $url;
 	$ip = gethostbyname($www);
 	$reverse = reverse($ip);
-	$list = preg_match_all("/<td><a href=\"(.*?)\">/i", $reverse, $listdomain);
+	$list = preg_match_all("/<td data-th=\"Domain\">\s(.*?)<\/td>/i", $reverse, $listdomain);
 	if ($listdomain[1] == true) {
 		$arr = [
-		'author' => './EcchiExplot',
-		'status' => 'success',
-		'result' => $listdomain[1]
+			'author' => './EcchiExplot',
+			'status' => 'success',
+			'result' => $listdomain[1]
 		];
 		echo json_encode($arr);
-	}
-	else {
+	} else {
 		$arr = [
-		'author' => './EcchiExplot',
-		'status' => 'failed',
-		'result' => $listdomain[1]
+			'author' => './EcchiExplot',
+			'status' => 'failed',
+			'result' => $listdomain[1]
 		];
 		echo json_encode($arr);
 	}
-}
-else if (!empty($_GET['ip'])) {
+} else if (!empty($_GET['ip'])) {
 	$ip = htmlspecialchars($_GET['ip']);
 	$reverse = reverse($ip);
-	$list = preg_match_all("/<td><a href=\"(.*?)\">/i", $reverse, $listdomain);
+	$list = preg_match_all("/<td data-th=\"Domain\">\s(.*?)<\/td>/i", $reverse, $listdomain);
 	if ($listdomain[1] == true) {
 		$arr = [
-		'author' => './EcchiExplot',
-		'status' => 'success',
-		'result' => $listdomain[1]
+			'author' => './EcchiExplot',
+			'status' => 'success',
+			'result' => $listdomain[1]
 		];
 		echo json_encode($arr);
-	}
-	else {
+	} else {
 		$arr = [
-		'author' => './EcchiExplot',
-		'status' => 'failed',
-		'result' => $listdomain[1]
+			'author' => './EcchiExplot',
+			'status' => 'failed',
+			'result' => $listdomain[1]
 		];
 		echo json_encode($arr);
 	}
-}
-else {
+} else {
 	echo "Domain Or Ip Empty";
 }
-?>
