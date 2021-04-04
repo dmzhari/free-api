@@ -1,50 +1,84 @@
 <?php
 
 header('Content-type: application/json');
-function exploit($url, $user, $pass)
+ob_clean();
+error_reporting(0);
+
+function getpage($from, $page)
 {
-	$setopt = array(
-		CURLOPT_URL => $url . '/wp-login.php',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_POSTFIELDS => "log=$user&pwd=$pass&wp-submit=LogIn&redirect_to=$url/wp-admin/",
-		CURLOPT_TIMEOUT => 60,
-		CURLOPT_CONNECTTIMEOUT => 60,
-		CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/604.3.5 (KHTML, like Gecko) Version/11.0.1 Safari/604.3.5',
-		CURLOPT_SSL_VERIFYHOST => false,
-		CURLOPT_SSL_VERIFYPEER => false,
-	);
-	$ch = curl_init();
-	curl_setopt_array($ch, $setopt);
-	$exe = curl_exec($ch);
-	$info = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	curl_close($ch);
-	return $info;
+	$i = 1;
+	if ($page >= 51) {
+		$api['error'] = 'Max Page Is 50!!';
+		echo json_encode($api);
+	} else {
+		while ($i <= $page) {
+			$getpages = "$from/page=$i";
+			echo getlistdomain(file_get_contents($getpages));
+			$i++;
+		}
+	}
 }
-if (!empty($_GET['site']) && !empty($_GET['user']) && !empty($_GET['pass'])) {
-	$site = htmlspecialchars($_GET['site']);
-	$user = htmlspecialchars($_GET['user']);
-	$pass = htmlspecialchars($_GET['pass']);
-	if (!preg_match('#^http(s)?://#', $site)) {
-		$url = "http://" . $site;
-	} else {
-		$url = $site;
+
+function getlistdomain($url)
+{
+	$scrap = preg_match_all("/<td>(.*?)([a-z])<\/td>/i", $url, $page);
+	$rep = str_replace('</td>', '', $page[0]);
+	$rep = str_replace('<td>', '', $rep);
+	$rep = preg_replace("/\/[^\/]*\/?$/i", '', $rep);
+	$rep = array_filter(array_unique($rep));
+	foreach ($rep as $key) {
+		if (is_null($key)) {
+			$api['status'] = 'failed';
+			$api['result'] = 'No Result!!';
+			echo json_encode($api, JSON_PRETTY_PRINT);
+		} else {
+			$api['status'] = 'success';
+			$api['result'] = $key;
+			echo json_encode($api, JSON_PRETTY_PRINT);
+		}
 	}
-	$exploit = exploit($url, $user, $pass);
-	if ($exploit == 302) {
-		$api['url'] = $url;
-		$api['user'] = $user;
-		$api['pass'] = $pass;
-		$api['exploit'] = 'vuln';
-		echo json_encode($api, JSON_PRETTY_PRINT);
-	} else {
-		$api['url'] = $url;
-		$api['exploit'] = 'failed';
-		echo json_encode($api, JSON_PRETTY_PRINT);
+}
+
+$from 		= htmlspecialchars($_GET['from']);
+$page 		= htmlspecialchars($_GET['page']);
+$attacker 	= htmlspecialchars($_GET['nickname']);
+$team 		= htmlspecialchars($_GET['team']);
+
+if (!empty($from) && !empty($page) || !empty($attacker) || !empty($team)) {
+	if ($from == 'archive') {
+		$url = 'https://zone-xsec.com/archive';
+		echo getpage($url, $page);
+	} else if ($from == 'special') {
+		$url = 'https://zone-xsec.com/special';
+		echo getpage($url, $page);
+	} else if ($from == 'onhold') {
+		$url = 'https://zone-xsec.com/onhold';
+		echo getpage($url, $page);
+	} else if ($from == 'attacker') {
+		if (empty($attacker)) {
+			echo 'Nickname attacker null or empty!!';
+		}
+		$name = str_replace('+', '%20', $attacker);
+		$url = "https://zone-xsec.com/archive/attacker/$name";
+		echo getpage($url, $page);
+	} else if ($from == 'team') {
+		if (empty($team)) {
+			echo 'Team attacker null or empty!!';
+		}
+		$name = str_replace('+', '%20', $team);
+		$url = "https://zone-xsec.com/archive/team/$name";
+		echo getpage($url, $page);
 	}
-} else if (empty($_GET['site'])) {
-	echo 'Site Empty';
-} else if (empty($_GET['user'])) {
-	echo 'User Empty';
-} else if (empty($_GET['pass'])) {
-	echo 'Pass Empty';
+} else if (empty($from)) {
+	echo "Grabber from empty or null!!<br>";
+	echo 'How To Use : http://localhost/xsec-api.php?from=grab-from<br><br>
+	Grabber From Archive : http://localhost/xsec-api.php?from=archive<br>
+	Grabber From Special : http://localhost/xsec-api.php?from=special<br>
+	Grabber From Onhold	 : http://localhost/xsec-api.php?from=onhold<br><br>
+	Use Grab From Team Or Attacker :<br>
+	http://localhost/xsec-api.php?from=grab-from&page=number-page&team=nickname-team<br>
+	http://localhost/xsec-api.php?from=grab-from&page=number-page&attacker=attacker-name';
+} else if (empty($page)) {
+	echo 'Page null or empty!!<br>';
+	echo 'How To Use : http://localhost/xsec-api.php?from=grab-from&page=number-page';
 }
