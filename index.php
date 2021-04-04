@@ -61,11 +61,11 @@
                                             WP Brute Force</a></td>
                                     <td>site=target&user=username&pass=password</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>6</td>
                                     <td><a href="otakudesuapi.php?anime=boruto" target="_blank">Otakudesu</a></td>
                                     <td>anime=title-anime</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
