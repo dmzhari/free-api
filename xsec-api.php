@@ -1,4 +1,6 @@
 <?php
+
+header('Content-type: application/json');
 ob_clean();
 error_reporting(0);
 
@@ -28,11 +30,11 @@ function getlistdomain($url)
 		if (is_null($key)) {
 			$api['status'] = 'failed';
 			$api['result'] = 'No Result!!';
-			echo json_encode($api);
+			echo json_encode($api, JSON_PRETTY_PRINT);
 		} else {
 			$api['status'] = 'success';
 			$api['result'] = $key;
-			echo json_encode($api);
+			echo json_encode($api, JSON_PRETTY_PRINT);
 		}
 	}
 }
