@@ -70,8 +70,8 @@ if (!empty($from) && !empty($page) || !empty($attacker) || !empty($team)) {
 	Grabber From Special : http://localhost/xsec-api.php?from=special<br>
 	Grabber From Onhold	 : http://localhost/xsec-api.php?from=onhold<br><br>
 	Use Grab From Team Or Attacker :<br>
-	http://localhost/xsec-api.php?from=grab-from&page=number-page&team=nickname-team<br>
-	http://localhost/xsec-api.php?from=grab-from&page=number-page&attacker=attacker-name';
+	http://localhost/xsec-api.php?from=team&page=number-page&team=nickname-team<br>
+	http://localhost/xsec-api.php?from=attacker&page=number-page&nickname=attacker-name';
 } else if (empty($page)) {
 	echo 'Page null or empty!!<br>';
 	echo 'How To Use : http://localhost/xsec-api.php?from=grab-from&page=number-page';
