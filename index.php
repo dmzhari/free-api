@@ -59,13 +59,13 @@
                                     <td>5</td>
                                     <td><a href="wpbf-api.php?site=example.com&user=admin&pass=admin" target="_blank">
                                             WP Brute Force</a></td>
-                                    <td>site=target&user=username&pass=password</td>
+                                    <td class="font-italic">site=target&user=username&pass=password</td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <td>6</td>
-                                    <td><a href="otakudesuapi.php?anime=boruto" target="_blank">Otakudesu</a></td>
-                                    <td>anime=title-anime</td>
-                                </tr> -->
+                                    <td><a href="reversekey.php?key=jokowi" target="_blank">Find Domain From Keyword Name</a></td>
+                                    <td class="font-italic">key=keyword</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
