@@ -13,29 +13,23 @@ function getpage($from, $page)
 	} else {
 		while ($i <= $page) {
 			$getpages = "$from/page=$i";
-			echo getlistdomain(file_get_contents($getpages));
+			$url = file_get_contents($getpages);
+			$scrap = preg_match_all("/<td>(.*?)([a-z])<\/td>/i", $url, $getdomain);
+			$rep = str_replace('</td>', '', $getdomain[0]);
+			$rep = str_replace('<td>', '', $rep);
+			$rep = preg_replace("/\/[^\/]*\/?$/i", '', $rep);
+			$rep = array_filter(array_unique($rep));
+			if (is_null($rep)) {
+				$api['status'] = 'failed';
+				$api['result'] = 'No Result!!';
+				//echo json_encode($api, JSON_PRETTY_PRINT);
+			} else {
+				$api['status'] = 'success';
+				$api["result_$i"] = $rep;
+			}
 			$i++;
 		}
-	}
-}
-
-function getlistdomain($url)
-{
-	$scrap = preg_match_all("/<td>(.*?)([a-z])<\/td>/i", $url, $page);
-	$rep = str_replace('</td>', '', $page[0]);
-	$rep = str_replace('<td>', '', $rep);
-	$rep = preg_replace("/\/[^\/]*\/?$/i", '', $rep);
-	$rep = array_filter(array_unique($rep));
-	foreach ($rep as $key) {
-		if (is_null($key)) {
-			$api['status'] = 'failed';
-			$api['result'] = 'No Result!!';
-			echo json_encode($api, JSON_PRETTY_PRINT);
-		} else {
-			$api['status'] = 'success';
-			$api['result'] = $key;
-			echo json_encode($api, JSON_PRETTY_PRINT);
-		}
+		echo json_encode($api, JSON_PRETTY_PRINT);
 	}
 }
 
