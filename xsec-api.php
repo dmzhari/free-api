@@ -64,15 +64,15 @@ if (!empty($from) && !empty($page) || !empty($attacker) || !empty($team)) {
 		echo getpage($url, $page);
 	}
 } else if (empty($from)) {
-	echo "Grabber from empty or null!!<br>";
-	echo 'How To Use : http://localhost/xsec-api.php?from=grab-from<br><br>
-	Grabber From Archive : http://localhost/xsec-api.php?from=archive<br>
-	Grabber From Special : http://localhost/xsec-api.php?from=special<br>
-	Grabber From Onhold	 : http://localhost/xsec-api.php?from=onhold<br><br>
-	Use Grab From Team Or Attacker :<br>
-	http://localhost/xsec-api.php?from=team&page=number-page&team=nickname-team<br>
-	http://localhost/xsec-api.php?from=attacker&page=number-page&nickname=attacker-name';
+	echo "Grabber from empty or null!!\n";
+	echo "How To Use : http://localhost/xsec-api.php?from=grab-from\n\n
+	Grabber From Archive : http://localhost/xsec-api.php?from=archive\n
+	Grabber From Special : http://localhost/xsec-api.php?from=special\n
+	Grabber From Onhold	 : http://localhost/xsec-api.php?from=onhold\n\n
+	Use Grab From Team Or Attacker :\n
+	http://localhost/xsec-api.php?from=team&page=number-page&team=nickname-team\n
+	http://localhost/xsec-api.php?from=attacker&page=number-page&nickname=attacker-name";
 } else if (empty($page)) {
-	echo 'Page null or empty!!<br>';
+	echo "Page null or empty!!\n";
 	echo 'How To Use : http://localhost/xsec-api.php?from=grab-from&page=number-page';
 }
