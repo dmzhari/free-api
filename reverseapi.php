@@ -1,35 +1,76 @@
 <?php
-
+/*
+/ # Author : ./EcchiExploit
+/ # Reverse Ip Lookup Unlimited Api
+/ # How To Use :
+/ # http://example.com/reverseapi.php?domain=your domain
+/ # http://example.com/reverseapi.php?ip=your ip
+*/
 header('Content-type: application/json');
-ob_flush();
-clearstatcache();
-// include '../random-useragent.php';
-function curl($url)
+set_time_limit(60);
+function reverse($url)
 {
-    $setopt = array(
-        CURLOPT_URL             => 'https://osint.sh/subdomain/',
-        CURLOPT_RETURNTRANSFER  => true,
-        CURLOPT_POST            => true,
-        CURLOPT_POSTFIELDS      => "domain=$url",
-        CURLOPT_USERAGENT       => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36',
-        CURLOPT_TIMEOUT         => 60,
-        CURLOPT_CONNECTTIMEOUT  => 60
-    );
-    $ch = curl_init();
-    curl_setopt_array($ch, $setopt);
-    $exe = curl_exec($ch);
-    curl_close($ch);
-    return $exe;
+	$setopt = array(
+		CURLOPT_URL => "https://osint.sh/reverseip/",
+		CURLOPT_RETURNTRANSFER => 1,
+		CURLOPT_POSTFIELDS => "domain=$url",
+		CURLOPT_POST => 1
+	);
+	$ch = curl_init();
+	curl_setopt_array($ch, $setopt);
+	$exe = curl_exec($ch);
+	curl_close($ch);
+	return $exe;
 }
 if (!empty($_GET['domain'])) {
-    $domain = htmlspecialchars($_GET['domain']);
-    $subdomain = curl($domain);
-    $scrap = preg_match_all("/<a href=\"https:\/\/(.*?)\"/i", $subdomain, $subdo);
-    $rep = array_unique(array_filter(preg_replace("#twitter.com/secgron|teguh.co/|www.linkedin.com/in/secgron|fb.me/secgron|fb.me/secgron|github.com/secgron#", '', $subdo[1])));
-    $api['status'] = http_response_code();
-    $api['result'] = $rep;
-    echo json_encode($api, JSON_PRETTY_PRINT);
+	$domain = htmlspecialchars($_GET['domain']);
+	if (!preg_match("#^http(s)?://#", $domain)) {
+		$site = "http://" . $domain;
+	} else {
+		$site = $domain;
+	}
+	$parse = parse_url($site);
+	$url = preg_replace('/^www\./', '', $parse['host']);
+	$www = "www." . $url;
+	$ip = gethostbyname($www);
+	$reverse = reverse($ip);
+	$list = preg_match_all("/<td data-th=\"Domain\">\s(.*?)<\/td>/i", $reverse, $listdomain);
+	$getdomain = str_replace(' ', '', $listdomain[1]);
+	if ($listdomain[1] == true) {
+		$arr = [
+			'author' => './EcchiExplot',
+			'status' => 'success',
+			'result' => array_filter($getdomain)
+		];
+		echo json_encode($arr, JSON_PRETTY_PRINT);
+	} else {
+		$arr = [
+			'author' => './EcchiExplot',
+			'status' => 'failed',
+			'result' => $listdomain[1]
+		];
+		echo json_encode($arr, JSON_PRETTY_PRINT);
+	}
+} else if (!empty($_GET['ip'])) {
+	$ip = htmlspecialchars($_GET['ip']);
+	$reverse = reverse($ip);
+	$list = preg_match_all("/<td data-th=\"Domain\">\s(.*?)<\/td>/i", $reverse, $listdomain);
+	$getdomain = str_replace(' ', '', $listdomain[1]);
+	if ($listdomain[1] == true) {
+		$arr = [
+			'author' => './EcchiExplot',
+			'status' => 'success',
+			'result' => array_filter($getdomain)
+		];
+		echo json_encode($arr, JSON_PRETTY_PRINT);
+	} else {
+		$arr = [
+			'author' => './EcchiExplot',
+			'status' => 'failed',
+			'result' => $getdomain
+		];
+		echo json_encode($arr, JSON_PRETTY_PRINT);
+	}
 } else {
-    $api['error'] = 'Not Found';
-    echo json_encode($api, JSON_PRETTY_PRINT);
+	echo "Domain Or Ip Empty";
 }
