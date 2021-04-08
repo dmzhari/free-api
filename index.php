@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <td>7</td>
-                                    <td><a href="random-waifu.php">Random Waifu</a></td>
+                                    <td><a href="random-waifu.php" target="_blank">Random Waifu</a></td>
                                     <td class="font-italic">No Query</td>
                                 </tr>
                             </tbody>
