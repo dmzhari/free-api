@@ -66,6 +66,11 @@
                                     <td><a href="reversekey.php?key=jokowi" target="_blank">Find Domain From Keyword Name</a></td>
                                     <td class="font-italic">key=keyword</td>
                                 </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td><a href="random-waifu.php">Random Waifu</a></td>
+                                    <td class="font-italic">No Query</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
