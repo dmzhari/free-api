@@ -35,11 +35,11 @@ if (!empty($_GET['site']) && !empty($_GET['user']) && !empty($_GET['pass'])) {
 		$api['user'] = $user;
 		$api['pass'] = $pass;
 		$api['exploit'] = 'vuln';
-		echo json_encode($api, JSON_PRETTY_PRINT);
+		echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	} else {
 		$api['url'] = $url;
 		$api['exploit'] = 'failed';
-		echo json_encode($api, JSON_PRETTY_PRINT);
+		echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 } else if (empty($_GET['site'])) {
 	echo 'Site Empty';

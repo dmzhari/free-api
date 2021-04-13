@@ -31,11 +31,11 @@ if (!empty($_GET['key'])) {
     if (is_null($rep)) {
         $api['status'] = 'failed';
         $api['resutl'] = 'no result';
-        echo json_encode($api, JSON_PRETTY_PRINT);
+        echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     } else {
         $api['status'] = 'success';
         $api['result'] = $rep;
-        echo json_encode($api, JSON_PRETTY_PRINT);
+        echo json_encode($api, JSON_PRETTY_PRINT) | JSON_UNESCAPED_SLASHES;
     }
 } else {
     $api['error'] = 'keyword empty!!';

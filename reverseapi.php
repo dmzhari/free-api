@@ -42,14 +42,14 @@ if (!empty($_GET['domain'])) {
 			'status' => 'success',
 			'result' => array_filter($getdomain)
 		];
-		echo json_encode($arr, JSON_PRETTY_PRINT);
+		echo json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	} else {
 		$arr = [
 			'author' => './EcchiExplot',
 			'status' => 'failed',
 			'result' => $listdomain[1]
 		];
-		echo json_encode($arr, JSON_PRETTY_PRINT);
+		echo json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 } else if (!empty($_GET['ip'])) {
 	$ip = htmlspecialchars($_GET['ip']);
@@ -62,14 +62,14 @@ if (!empty($_GET['domain'])) {
 			'status' => 'success',
 			'result' => array_filter($getdomain)
 		];
-		echo json_encode($arr, JSON_PRETTY_PRINT);
+		echo json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	} else {
 		$arr = [
 			'author' => './EcchiExplot',
 			'status' => 'failed',
 			'result' => $getdomain
 		];
-		echo json_encode($arr, JSON_PRETTY_PRINT);
+		echo json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 } else {
 	echo "Domain Or Ip Empty";

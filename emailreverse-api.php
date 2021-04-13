@@ -34,9 +34,9 @@ if (!empty($_GET['email'])) {
 	} else {
 		$api['status'] = http_response_code();
 		$api['result'] = 'No Result';
-		echo json_encode($api, JSON_PRETTY_PRINT);
+		echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 } else if (empty($_GET['email'])) {
 	$api['error'] = 'Not Found';
-	echo json_encode($api, JSON_PRETTY_PRINT);
+	echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 }

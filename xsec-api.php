@@ -2,6 +2,7 @@
 
 header('Content-type: application/json');
 ob_clean();
+flush();
 error_reporting(0);
 
 function getpage($from, $page)

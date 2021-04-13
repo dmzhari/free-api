@@ -34,42 +34,47 @@
                             <tbody class="text-center">
                                 <tr>
                                     <td>1</td>
-                                    <td><a href="reverseapi.php?domain=example.com" target="_blank">Reverse Ip</a></td>
+                                    <td><a href="reverseapi?domain=example.com" target="_blank">Reverse Ip</a></td>
                                     <td class="font-italic">domain=target or ip=target</td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td><a href="emailreverse-api.php?email=example@example.com" target="_blank">Email
+                                    <td><a href="emailreverse-api?email=example@example.com" target="_blank">Email
                                             Reverse</a></td>
                                     <td class="font-italic">email=target</td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td><a href="subdomain-api.php?domain=example.com" target="_blank">Subdomain
+                                    <td><a href="subdomain-api?domain=example.com" target="_blank">Subdomain
                                             Finder</a></td>
                                     <td class="font-italic">domain=target</td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td><a href="xsec-api.php?from=archive&page=2" target="_blank">Zone-Xsec
+                                    <td><a href="xsec-api?from=archive&page=2" target="_blank">Zone-Xsec
                                             Grabber</a></td>
                                     <td class="font-italic">from=grabfrom&page=number-page</td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
-                                    <td><a href="wpbf-api.php?site=example.com&user=admin&pass=admin" target="_blank">
+                                    <td><a href="wpbf-api?site=example.com&user=admin&pass=admin" target="_blank">
                                             WP Brute Force</a></td>
                                     <td class="font-italic">site=target&user=username&pass=password</td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
-                                    <td><a href="reversekey.php?key=jokowi" target="_blank">Find Domain From Keyword Name</a></td>
+                                    <td><a href="reversekey?key=jokowi" target="_blank">Find Domain From Keyword Name</a></td>
                                     <td class="font-italic">key=keyword</td>
                                 </tr>
                                 <tr>
                                     <td>7</td>
-                                    <td><a href="random-waifu.php" target="_blank">Random Waifu</a></td>
+                                    <td><a href="random-waifu" target="_blank">Random Waifu</a></td>
                                     <td class="font-italic">No Query</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td><a href="nik/nik-parse?nik=3217090206030006" target="_blank">Parsing NIK KTP</a></td>
+                                    <td class="font-italic">nik=k_nik</td>
                                 </tr>
                             </tbody>
                         </table>
