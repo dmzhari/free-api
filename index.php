@@ -76,6 +76,11 @@
                                     <td><a href="nik/nik-parse?nik=3217090206030006" target="_blank">Parsing NIK KTP</a></td>
                                     <td class="font-italic">nik=k_nik</td>
                                 </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td><a href="wpuser-api?domain=https://myscada.org" target="_blank">WP User Scanner</a></td>
+                                    <td class="font-italic">domain=target</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
