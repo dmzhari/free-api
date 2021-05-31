@@ -18,7 +18,7 @@ if (empty($dork)) {
         $page = $page + 10;
         foreach ($domain[1] as $key) {
             $key = preg_replace('/http:\/\/|https:\/\/|www./', '', $key);
-            $getlist = mysqli_query($con, "INSERT INTO domain VALUES ('$key')");
+            mysqli_query($con, "INSERT INTO domain VALUES ('$key')");
         }
     }
 
