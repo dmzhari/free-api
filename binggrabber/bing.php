@@ -2,6 +2,7 @@
 header('Content-type: application/json');
 clearstatcache();
 set_time_limit(0);
+error_reporting(0);
 
 $con = mysqli_connect('localhost', 'root', '', 'binggrab');
 $page = 0;
