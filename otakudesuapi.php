@@ -122,11 +122,11 @@ if (!empty($_GET['anime'])) {
 					],
 				],
 			];
-			echo json_encode($api, JSON_PRETTY_PRINT);
+			echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 		}
 	}
 } else {
 	$api['error'] = 'not found';
-	echo json_encode($api, JSON_PRETTY_PRINT);
+	echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 }
 ob_end_flush();
