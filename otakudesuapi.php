@@ -70,7 +70,7 @@ if (!empty($_GET['anime'])) {
 					],
 				],
 			];
-			echo json_encode($api, JSON_PRETTY_PRINT);
+			echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 		} else {
 			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>:(.*?)<\/span>/i", $page, $judulanime);
 			$sinopsis = preg_match_all("/class='sinopc'><p>(.*?)<\/p><\/div>/i", $page, $sinop);
