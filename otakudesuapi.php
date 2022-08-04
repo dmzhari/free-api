@@ -1,5 +1,4 @@
 <?php
-
 header('Content-type: application/json');
 ob_flush();
 error_reporting(0);
@@ -20,7 +19,7 @@ if (!empty($_GET['anime'])) {
 		$page = file_get_contents($test[1][0]);
 		$status = preg_match_all("/<span><b>Status<\/b>: (.*?)<\/span>/", $page, $check);
 		if ($check[1][0] == "Ongoing") {
-			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>:(.*?)<\/span>/i", $page, $judulanime);
+			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>: (.*?)<\/span>/i", $page, $judulanime);
 			$sinopsis = preg_match_all("/class='sinopc'><p>(.*?)<\/p><\/div>/i", $page, $sinop);
 			$thumb = preg_match_all("/img width=\"(.*?)\" height=\"(.*?)\" src=\"(.*?)\"/i", $page, $thumd);
 			$nipc = preg_replace("/<p[^>]*?>/", "\n", $sinop[1][0]);
@@ -44,7 +43,7 @@ if (!empty($_GET['anime'])) {
 				'result' => [
 					'judul' => $judulanime[2][0],
 					'thumbnail' => $thumd[3][0],
-					'sinopsis' => $nipc,
+					'sinopsis' => empty($nipc) ? 'Tidak Ada Sinopsis' : $nipc,
 					'download' => [
 						'360' => [
 							'racaty' => $don360p[1][0],
@@ -72,7 +71,7 @@ if (!empty($_GET['anime'])) {
 			];
 			echo json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 		} else {
-			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>:(.*?)<\/span>/i", $page, $judulanime);
+			$judul = preg_match_all("/class=\"infozingle\"><p><span><b(.*?)<\/b>: (.*?)<\/span>/i", $page, $judulanime);
 			$sinopsis = preg_match_all("/class='sinopc'><p>(.*?)<\/p><\/div>/i", $page, $sinop);
 			$thumb = preg_match_all("/img width=\"(.*?)\" height=\"(.*?)\" src=\"(.*?)\"/i", $page, $thumd);
 			$nipc = preg_replace("/<p[^>]*?>/", "\n", $sinop[1][0]);
@@ -96,7 +95,7 @@ if (!empty($_GET['anime'])) {
 				'result' => [
 					'judul' => $judulanime[2][0],
 					'thumbnail' => $thumd[3][0],
-					'sinopsis' => $nipc,
+					'sinopsis' => empty($nipc) ? 'Tidak Ada Sinopsis' : $nipc,
 					'download' => [
 						'360' => [
 							'racaty' => $don360p[1][0],
