@@ -84,7 +84,7 @@
                                 <tr>
                                     <td>10</td>
                                     <td><a href="otakudesuapi?anime=overlord" target="_blank">Otakudesu Scrapper</a></td>
-                                    <td class="font-italic">anime=<anime name></td>
+                                    <td class="font-italic">anime=anime_name</td>
                                 </tr>
                             </tbody>
                         </table>
