@@ -81,6 +81,11 @@
                                     <td><a href="wpuser-api?domain=https://myscada.org" target="_blank">WP User Scanner</a></td>
                                     <td class="font-italic">domain=target</td>
                                 </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td><a href="otakudesuapi?anime=overlord" target="_blank">Otakudesu Scrapper</a></td>
+                                    <td class="font-italic">anime=<anime name></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
